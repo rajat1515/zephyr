@@ -23,7 +23,7 @@ STATIC_DIR = join(BASE_DIR,'static')
 SECRET_KEY = 'django-insecure-#m!n1r4&c==2ydtc-v08eztfrllh%^2krf#xbk5hxz-v6(y=t*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -132,6 +132,7 @@ MEDIA_ROOT = join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = ['*']
 
-if not DEBUG:
-    STATIC_ROOT = join(BASE_DIR, 'staticfiles')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# if not DEBUG:
+STATIC_ROOT = join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+        
