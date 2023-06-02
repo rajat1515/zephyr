@@ -12,11 +12,10 @@ def upload_xml(request):
             'main_folder':  request.POST.get('main-folder-name', 'PEG_FY_24').strip() ,
             'sprint_folder': request.POST.get('sprint-name', 'Test').strip(),
             'automation_folder': request.POST.get('automated-run', 'PEG_Automated Run').strip(),
-            'week_folder_name' : request.POST.get('sub_folder').strip(),
-            'release_version' : request.POST.get('release_version').strip()
-
+            'week_folder_name' : request.POST.get('sub_folder').strip()
         }
-        if not folder_names['release_version'].startswith('A360.'):
+        release_version = request.POST.get('release_version').strip()
+        if not release_version.startswith('A360.'):
             return render(request, 'index.html', {'response':'Incorrect Release version Format'})
 
         z = Zephyr(request.POST.get('bearer_token').strip(), request.POST.get('project_key').strip())
@@ -59,7 +58,7 @@ def upload_xml(request):
 
                 #   update test Cycle
                 update_resp = z.update_cycle(
-                    new_cycle['id'], new_cycle['key'], s.group().strip(), parent_id, folder_names['release_version']
+                    new_cycle['id'], new_cycle['key'], s.group().strip(), parent_id, release_version.strip()
                 )
                 if update_resp.status_code == 200:
                     # print(f"Updated new test cycle's Name and moved it to the target Folder")
