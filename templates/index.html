@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static  'index.css' %}">
+    <title>Zephyr Xml upload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="form">
+        <center><div class="title">Upload XML to Zephyr </div></center>
+        <form method="post" action="/" enctype="multipart/form-data">
+            <div class="input-container ic1">
+                <input name="main-folder-name" id="main-folder-name" class="input disabled" type="text" placeholder=" " value="PEG_FY_24" disabled required/>
+                <div class="cut" id="cut1"></div>
+                <label for="main-folder-name" class="placeholder">Main folder Name</label>
+                <i class="fas fa-edit edit-icon" onclick="enableInput('main')"></i>
+            </div>
+            <div class="input-container ic2" style="display: flex;">
+                <div style="width: 50%;">
+                    <input name="sprint-name" id="sprint-name" class="input" type="text" placeholder="" value="Test" required/>
+                    <div class="cut" id="cut4"></div>
+                    <label for="sprint-name" class="placeholder">Sprint Name</label>
+                </div>
+               <div style="width: 50%;">
+                    <input name="project_key" id="token1" class="input" type="text" placeholder=" " required/>
+                    <div class="cut cut-short" id="cut5"></div>
+                    <label for="token1" class="placeholder" id="bearertoken">Project Key</label>
+                </div>
+            </div>
+
+
+            <div class="input-container ic2">
+                <input name="automated-run" id="automated-run" class="input disabled" type="text" placeholder=" " disabled value="PEG_Automated Run" required/>
+                <div class="cut" id="cut3"></div>
+                <label for="automated-run" class="placeholder">Automated Run Folder</label>
+                <i class="fas fa-edit edit-icon" onclick="enableInput('automated-run')"></i>
+            </div>
+            <div class="input-container ic2" style="display: flex;">
+                <div style="width: 50%;">
+                    <input name="sub_folder" id="sub-folder-name" class="input" type="text" placeholder="" value="Week 1" required/>
+                    <div class="cut" id="cut4"></div>
+                    <label for="sub-folder-name" class="placeholder">Week name</label>
+                </div>
+               <div style="width: 50%;">
+                    <input name="release_version" id="token1" class="input" type="text" placeholder=" " required/>
+                    <div class="cut cut-short" id="cut5"></div>
+                    <label for="token1" class="placeholder" id="bearertoken">Release Version</label>
+                </div>
+            </div>
+            <div class="input-container ic2" id="container2">
+                <input name="bearer_token" id="token2" class="input" type="text" placeholder=" " required />
+                <div class="cut cut-short" id="cut6"></div>
+                <label for="token2" class="placeholder">Bearer Token</label>
+            </div>
+            <div class="input-container ic2">
+                <input name="files" id="files" class="input" type="file" accept=".xml" placeholder=" "  required multiple / >
+                <label for="files" class="placeholder">Select XML files</label>
+            </div>
+
+            {% csrf_token %}
+            <button type="submit" class="submit" onclick="showOutputConsole()">Submit</button>
+        </form>
+    </div>
+    {% if response %}
+    <div class="form" id="output-console" >
+        <center><div class="title">Output Console</div></center>
+        
+        <p style="white-space: pre-line;" class="response">{{ response }}</p>
+    </div>
+    {% endif%}
+
+    <script>
+        function enableInput(attribute) {
+            if (attribute === 'main')
+                var input = document.getElementById("main-folder-name");
+            else
+                var input = document.getElementById("automated-run");
+
+            input.removeAttribute("disabled");
+            input.classList.remove('disabled');
+            input.focus();
+        }
+
+    </script>
+</body>
+</html>
