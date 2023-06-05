@@ -116,7 +116,7 @@ class Zephyr:
         for e in q['values']:
             if e['name'].strip().lower() == folder_name.strip().lower() and e['parentId'] == parent_id:
                 return  e
-            return False
+        return False
         
 
     def post_junit_results(self, file_name, file_data, test_cycle_id=None):
